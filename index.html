@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Voting App</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="title"></div>
+    <div id="table"></div>
+    <script src="node_modules/react/umd/react.development.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        ReactDOM.render(<h1>Vote Your JS Library</h1>, document.getElementById('title'));
+        function VoteButton(props) {
+            const library = props.library;
+            function voteConfirm(e) {
+                e.preventDefault();
+                alert('You voted for ' + library);
+            }
+            return (
+                <button onClick = {voteConfirm}>+</button>
+            )
+        }
+        function Table(props) {
+            const libraries = props.libraries;
+            // const count = props.votes;
+            const listItems = libraries.map((library) => 
+                <tr key = {library}><td>{library}<VoteButton library = {library} /></td></tr>
+            );
+            return (
+                <table><tbody>{listItems}</tbody></table>
+            );
+        }
+        const libraries = ['React', 'Vue', 'Angular', 'Ember'];
+        ReactDOM.render(<Table libraries = {libraries}/>, document.getElementById('table'));
+    </script>
+</body>
+</html>
